@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db
+    deployment: pks-workshop
+  name: workshop-demo-standalone-db
+spec:
+  ports:
+  - port: 3306
+    name: mysql
+  type: NodePort
+  selector:
+    app: db
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  labels:
+    app: db
+    deployment: pks-workshop-db
+  name: db
+spec:
+  containers:
+  - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
+    name: workshop-mysql
+    env:
+      # Use secret in real usage
+    - name: MYSQL_ROOT_PASSWORD
+      value: secret
+    - name: MYSQL_DATABASE
+      value: demo1
+    ports:
+    - containerPort: 3306
+      name: mysql
