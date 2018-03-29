@@ -31,7 +31,7 @@ spec:
       protocol: TCP
     env:
     - name: DB_HOST
-      value: "localhost"
+      value: "127.0.0.1"
     - name: DB_PORT
       value: "3306"
     - name: DB_USERNAME
