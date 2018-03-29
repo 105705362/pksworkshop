@@ -43,4 +43,4 @@ manager.create_api(Person, methods=['GET', 'POST', 'DELETE'])
 manager.create_api(Article, methods=['GET'])
 
 # start the flask loop
-app.run()
+app.run(host='0.0.0.0', threaded=True, debug=True)
