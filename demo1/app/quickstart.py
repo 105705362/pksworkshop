@@ -18,7 +18,7 @@ else:
     host = os.environ.get(svc_name + '_SERVICE_HOST', 'localhost')
     port = os.environ.get(svc_name + '_SERVICE_PORT', '3306')
 
-dbname = os.environ.get('DB_DBNAME')
+dbname = os.environ.get('DB_DBNAME','demo1')
 username = os.environ.get('DB_USERNAME', 'root')
 password = os.environ.get('DB_PASSWORD', 'secret')
 uri = 'mysql://' + username + ':' + password + '@' + host + ':' + port + '/' + dbname
