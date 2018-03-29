@@ -34,7 +34,7 @@ spec:
           protocol: TCP
         env:
         - name: SVC_NAME
-          value: mysql
+          value: MYSQL
         - name: DB_HOST
           value: mysql
         - name: DB_PORT
