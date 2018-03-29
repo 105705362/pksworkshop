@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 
 app.config['DEBUG'] = True
 
-svc_name = os.environ.get('SVC_NAME')
+svc_name = os.environ.get('SVC_NAME', '')
 if not svc_name:
     host = os.environ.get('DB_HOST', 'localhost')
     port = os.environ.get('DB_PORT', '3306')
