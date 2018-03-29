@@ -13,7 +13,7 @@ spec:
     name: mysql
   type: NodePort
   selector:
-    app: rest-bundle
+    app: rest-service
 ---
 apiVersion: v1
 kind: Pod
