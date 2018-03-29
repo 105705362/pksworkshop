@@ -10,13 +10,17 @@ app = flask.Flask(__name__)
 app.config['DEBUG'] = True
 
 svc_name = os.environ.get('SVC_NAME')
-host = os.environ.get(svc_name + '_SERVICE_HOST')
-port = os.environ.get(svc_name + '_SERVICE_PORT')
-#host = os.environ.get('DB_HOST')
-#port = os.environ.get('DB_PORT')
+if not svc_name:
+    host = os.environ.get('DB_HOST', 'localhost')
+    port = os.environ.get('DB_PORT', '3306')
+else:
+    svc_name = svc_name.upper()
+    host = os.environ.get(svc_name + '_SERVICE_HOST', 'localhost')
+    port = os.environ.get(svc_name + '_SERVICE_PORT', '3306')
+
 dbname = os.environ.get('DB_DBNAME')
-username = os.environ.get('DB_USERNAME')
-password = os.environ.get('DB_PASSWORD')
+username = os.environ.get('DB_USERNAME', 'root')
+password = os.environ.get('DB_PASSWORD', 'secret')
 uri = 'mysql://' + username + ':' + password + '@' + host + ':' + port + '/' + dbname
 print(uri)
 app.config['SQLALCHEMY_DATABASE_URI'] = uri

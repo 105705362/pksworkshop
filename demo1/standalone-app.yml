@@ -35,10 +35,10 @@ spec:
         env:
         - name: SVC_NAME
           value: MYSQL
-        - name: DB_HOST
-          value: mysql
-        - name: DB_PORT
-          value: "3306"
+        # - name: DB_HOST
+        #   value: mysql
+        # - name: DB_PORT
+        #   value: "3306"
         - name: DB_USERNAME
           value: root
         - name: DB_PASSWORD

@@ -32,10 +32,15 @@ spec:
   - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
     name: workshop-mysql
     env:
-      # Use secret in real usage
-    - name: MYSQL_ROOT_PASSWORD
+    - name: DB_HOST
+      value: localhost
+    - name: DB_PORT
+      value: "3306"
+    - name: DB_USERNAME
+      value: root
+    - name: DB_PASSWORD
       value: secret
-    - name: MYSQL_DATABASE
+    - name: DB_DBNAME
       value: demo1
     ports:
     - containerPort: 3306
