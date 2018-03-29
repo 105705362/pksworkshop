@@ -29,11 +29,9 @@ spec:
     ports:
     - containerPort: 5000
       protocol: TCP
-  - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
-    name: workshop-mysql
     env:
     - name: DB_HOST
-      value: localhost
+      value: "localhost"
     - name: DB_PORT
       value: "3306"
     - name: DB_USERNAME
@@ -42,6 +40,13 @@ spec:
       value: secret
     - name: DB_DBNAME
       value: demo1
+  - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
+    name: workshop-mysql
     ports:
     - containerPort: 3306
       name: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: secret
+    - name: MYSQL_DATABASE
+      value: demo1

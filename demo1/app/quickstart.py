@@ -11,9 +11,11 @@ app.config['DEBUG'] = True
 
 svc_name = os.environ.get('SVC_NAME', '')
 if not svc_name:
+    print('svc_name is null, use DB_HOST and DB_PORT...')
     host = os.environ.get('DB_HOST', 'localhost')
     port = os.environ.get('DB_PORT', '3306')
 else:
+    print('svc_name is not null: ', + svc_name + 'use SERVICE_HOST and SERVICE_PORT...')
     svc_name = svc_name.upper()
     host = os.environ.get(svc_name + '_SERVICE_HOST', 'localhost')
     port = os.environ.get(svc_name + '_SERVICE_PORT', '3306')
