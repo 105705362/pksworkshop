@@ -9,8 +9,11 @@ app = flask.Flask(__name__)
 
 app.config['DEBUG'] = True
 
-host = os.environ.get('DB_HOST')
-port = os.environ.get('DB_PORT')
+svc_name = os.environ.get('SVC_NAME')
+host = os.environ.get(svc_name + '_SERVICE_HOST')
+port = os.environ.get(svc_name + '_SERVICE_PORT')
+#host = os.environ.get('DB_HOST')
+#port = os.environ.get('DB_PORT')
 dbname = os.environ.get('DB_DBNAME')
 username = os.environ.get('DB_USERNAME')
 password = os.environ.get('DB_PASSWORD')
