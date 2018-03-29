@@ -31,6 +31,12 @@ spec:
       protocol: TCP
   - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
     name: fortune-backend
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
+        - name: MYSQL_DATABASE
+          value: demo1
     ports:
     - containerPort: 3306
       protocol: TCP
