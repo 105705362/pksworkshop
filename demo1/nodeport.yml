@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: fortune-service
+    deployment: pks-workshop
+  name: fortune-service
+spec:
+  ports:
+  - port: 5000
+    name: ui
+  - port: 3306
+    name: backend
+  type: LoadBalancer
+  selector:
+    app: fortune
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: fortune
+    deployment: pks-workshop
+  name: fortune
+spec:
+  containers:
+  - image: harbor.pks.pcfdemo.com/demo/workshop-rest-server
+    name: fortune-ui
+    ports:
+    - containerPort: 5000
+      protocol: TCP
+  - image: harbor.pks.pcfdemo.com/demo/workshop-mysql
+    name: fortune-backend
+    ports:
+    - containerPort: 3306
+      protocol: TCP
