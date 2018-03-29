@@ -11,7 +11,7 @@ spec:
     name: ui
   - port: 3306
     name: backend
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: fortune
 ---
