@@ -34,7 +34,7 @@ spec:
           protocol: TCP
         env:
         - name: DB_HOST
-          value: mysql
+          value: mysql.default
         - name: DB_PORT
           value: "3306"
         - name: DB_USERNAME
