@@ -2,12 +2,22 @@ import flask
 import flask_sqlalchemy
 import flask_restless
 from sqlalchemy import Column, Date, Integer, String
-
+import os
 
 # Create the Flask application and the Flask-SQLAlchemy object.
 app = flask.Flask(__name__)
+
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:secret@127.0.0.1/demo1'
+
+host = os.environ.get('DB_HOST')
+port = os.environ.get('DB_PORT')
+dbname = os.environ.get('DB_DBNAME')
+username = os.environ.get('DB_USERNAME')
+password = os.environ.get('DB_PASSWORD')
+uri = 'mysql://' + username + ':' + password + '@' + host + ':' + port + '/' + dbname
+print(uri)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
+#'mysql://root:secret@127.0.0.1/demo1'
 db = flask_sqlalchemy.SQLAlchemy(app)
 
 

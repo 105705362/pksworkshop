@@ -32,3 +32,14 @@ spec:
         ports:
         - containerPort: 5000
           protocol: TCP
+        env:
+        - name: DB_HOST
+          value: mysql
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USERNAME
+          value: root
+        - name: DB_PASSWORD
+          value: secret
+        - name: DB_DBNAME
+          value: demo1
