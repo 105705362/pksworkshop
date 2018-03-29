@@ -1,54 +1,43 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  labels:
+    app: fortune-service
+    deployment: pks-workshop
+  name: fortune-service
 spec:
   ports:
-  - port: 3306
+  - port: 80
+    name: ui
+  - port: 9080
+    name: backend
+  - port: 6379
+    name: redis
+  type: NodePort
   selector:
-    app: mysql
-  clusterIP: None
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: mysql-pv-claim
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 100Mi
+    app: fortune
 ---
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: mysql
+  labels:
+    app: fortune
+    deployment: pks-workshop
+  name: fortune
 spec:
-  selector:
-    matchLabels:
-      app: mysql
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-      - image: harbor.pks.pcfdemo.com/demo/mysql
-        name: mysql
-        env:
-          # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
-        ports:
-        - containerPort: 3306
-          name: mysql
-      #   volumeMounts:
-      #   - name: mysql-persistent-storage
-      #     mountPath: /var/lib/mysql
-      # volumes:
-      # - name: mysql-persistent-storage
-      #   persistentVolumeClaim:
-      #     claimName: mysql-pv-claim
+  containers:
+  - image: harbor.pks.pcfdemo.com/fortune-ui:latest
+    name: fortune-ui
+    ports:
+    - containerPort: 80
+      protocol: TCP
+  - image: harbor.pks.pcfdemo.com/fortune-backend-jee:latest
+    name: fortune-backend
+    ports:
+    - containerPort: 9080
+      protocol: TCP
+  - image: harbor.pks.pcfdemo.com/redis
+    name: redis
+    ports:
+    - containerPort: 6379
+      protocol: TCP
