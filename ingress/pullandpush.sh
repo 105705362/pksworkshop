@@ -1,12 +1,12 @@
 docker pull quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.12.0
 docker tag quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.12.0 harbor.pks.pcfdemo.com/demo/defaultbackend:1.4
-docker push harbor.pks.pcfdemo.com/demo/nginx-ingress-controller:0.12.0
-
 
 docker pull gcr.io/google_containers/defaultbackend:1.4
-docker push harbor.pks.pcfdemo.com/demo/defaultbackend:1.4
 docker tag gcr.io/google_containers/defaultbackend:1.4 harbor.pks.pcfdemo.com/demo/nginx-ingress-controller:0.12.0
 
+docker push harbor.pks.pcfdemo.com/demo/defaultbackend:1.4
+
+docker push harbor.pks.pcfdemo.com/demo/nginx-ingress-controller:0.12.0
 
 kubectl apply -f namespace.yaml
 kubectl apply -f default-backend.yaml
