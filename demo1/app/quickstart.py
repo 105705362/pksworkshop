@@ -15,7 +15,7 @@ if not svc_name:
     host = os.environ.get('DB_HOST', '127.0.0.1')
     port = os.environ.get('DB_PORT', '3306')
 else:
-    print('svc_name is not null: ', + svc_name + 'use SERVICE_HOST and SERVICE_PORT...')
+    print('svc_name is not null: ' + svc_name + 'use SERVICE_HOST and SERVICE_PORT...')
     svc_name = svc_name.upper()
     host = os.environ.get(svc_name + '_SERVICE_HOST', '127.0.0.1')
     port = os.environ.get(svc_name + '_SERVICE_PORT', '3306')
