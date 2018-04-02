@@ -1,0 +1,68 @@
+* Deployed Pivotal Ops Manager (2.0+)
+* Deployed Pivotal Director Tile
+   * Post-deploy scripts enabled
+* Deployed Pivotal Container Service Tile
+* Installed PKS CLI
+* UAA User Created with PKS create permissions
+Manage Kubernetes Clusters
+
+
+curl -k https://api.demo.com
+
+#download
+wget -O "pks" --header="Authorization: Token a_qAb5BRDZq5E1oj2a_5" https://network.pivotal.io/api/v2/products/pivotal-container-service/releases/43085/product_files/75337/download
+
+
+#make sure that you have api.<your pks service> configured
+
+kubectl
+wget -O "kubectl" --header="Authorization: Token a_qAb5BRDZq5E1oj2a_5" https://network.pivotal.io/api/v2/products/pivotal-container-service/releases/43085/product_files/81746/download
+
+#add user and set permission
+uaac target https://api.demo.com:8443 --ca-cert /var/tempest/workspaces/default/root_ca_certificate
+#uaac token client get admin -s UAA-ADMIN-SECRET
+uaac token client get admin -s emqpNABl2uEiFjAiJsj_lLydrUU1zxGQd
+
+#add user
+uaac user add nge --emails nge@pivotal.io -p nge
+#set permission
+uaac member add pks.clusters.admin nge
+
+#login
+pks login -a api.demo.com -u nge -p nge -k
+
+pks plans
+pks create-cluster mycluster1 --external-hostname mycluster1.pks.pcfdemo.com --plan small --num-nodes 3
+pks create-cluster mycluster2 --external-hostname <mycluster2> --plan small --num-nodes 3
+
+bosh alias-env pks -e 10.193.145.31 --ca-cert /var/tempest/workspaces/default/root_ca_certificate
+
+pks get-credentials <mycluster2>
+
+
+#switch#
+KUBECONFIG=~/kubeconfig/mycluster1.config pks get-credentials <mycluster1>
+KUBECONFIG=~/kubeconfig/mycluster2.config pks get-credentials <mycluster2>
+
+export KUBECONFIG=~/kubeconfig/mycluster1.config
+export KUBECONFIG=~/kubeconfig/mycluster2.config
+
+KUBECONFIG=/path/to/my-cluster.config pks get-credentials my-cluster
+
+kubectl config use-context mycluster2
+pks resize
+
+
+
+%s/cargo.caicloudprivatetest.com\/caicloud/boyi/g
+
+
+
+docker tag azwickey/fortune-backend-jee:latest harbor.pks.pcfdemo.com:
+
+cat /var/tempest/workspaces/default/root_ca_certificate >> /etc/ssl/certs/ca-certificates.crt
+
+docker tag azwickey/fortune-backend-jee:latest harbor.pks.pcfdemo.com/demo/fortune-backend-jee:latest
+
+
+harbor.pks.pcfdemo.com/demo/mysql
