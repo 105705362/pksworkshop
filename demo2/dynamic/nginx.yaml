@@ -58,3 +58,4 @@ provisioner: kubernetes.io/vsphere-volume
 parameters:
     diskformat: zeroedthick
     fstype:     ext3
+    datastore: k8s
