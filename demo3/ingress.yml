@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: mycluster.com 
+    http:
+      paths:
+      - backend:
+          serviceName: service-ui
+          servicePort: 8585
+        path: /ui
+      - backend:
+          serviceName: elasticsearch
+          servicePort: 9200
+        path: /es
+
